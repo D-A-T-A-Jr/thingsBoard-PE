@@ -131,26 +131,16 @@ class TbAppBar extends HookConsumerWidget implements PreferredSizeWidget {
         children: [
           Flexible(child: text),
           SuperTooltip(
-            borderRadius: 4,
-            arrowLength: 8,
-            arrowBaseWidth: 16,
-            top: padding,
-            borderColor: Colors.transparent,
-            popupDirection: TooltipDirection.left,
-
-            boxShadows: [
-              BoxShadow(
-                color: AppColors.black.withValues(alpha: .15),
-                blurRadius: 6,
-                spreadRadius: 2,
-              ),
-              BoxShadow(
-                color: AppColors.black.withValues(alpha: .3),
-                blurRadius: 2,
-                offset: const Offset(0, 1),
-              ),
-            ],
-            shadowColor: Colors.transparent,
+            style: const TooltipStyle(
+              borderColor: Colors.transparent,
+              shadowColor: Colors.transparent,
+            ),
+            positionConfig: const PositionConfiguration(
+              preferredDirection: TooltipDirection.left,
+            ),
+            barrierConfig: const BarrierConfiguration(
+              color: Colors.transparent,
+            ),
             content: Text(
               text.data ?? '',
               style: TbTextStyles.labelSmall.copyWith(
@@ -158,7 +148,6 @@ class TbAppBar extends HookConsumerWidget implements PreferredSizeWidget {
               ),
             ),
             controller: _controller,
-            barrierColor: Colors.transparent,
             child: InkWell(
               onTap: () {
                 _controller.showTooltip();

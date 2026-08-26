@@ -125,7 +125,7 @@ class NotificationService {
       iOS: initializationSettingsIOS,
     );
 
-    await flutterLocalNotificationsPlugin.initialize(
+    await flutterLocalNotificationsPlugin.initialize(settings: 
       initializationSettings,
       onDidReceiveNotificationResponse: (response) {
         if (response.notificationResponseType ==
@@ -212,11 +212,11 @@ class NotificationService {
     final notification = message.notification;
 
     if (notification != null) {
-      flutterLocalNotificationsPlugin.show(
-        notification.hashCode,
-        notification.title,
-        notification.body,
-        _notificationDetails,
+      flutterLocalNotificationsPlugin.show(id: notification.hashCode, title: notification.title, body: notification.body, notificationDetails: _notificationDetails, 
+
+
+
+
         payload: json.encode(message.data),
       );
 

@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
+import "package:material_ui/material_ui.dart" as mui;
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
@@ -61,7 +62,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                                     S.of(context).currentPasswordRequireText,
                               ),
                             ]),
-                            decoration: InputDecoration(
+                            decoration: mui.InputDecoration(
                               suffixIcon: IconButton(
                                 icon: Icon(
                                   showPassword
@@ -73,7 +74,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                                       !_showCurrentPasswordNotifier.value;
                                 },
                               ),
-                              border: const OutlineInputBorder(),
+                              border: const mui.OutlineInputBorder(),
                               labelText: "${S.of(context).currentPassword} *",
                             ),
                           );
@@ -95,7 +96,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                                 errorText: S.of(context).newPasswordRequireText,
                               ),
                             ]),
-                            decoration: InputDecoration(
+                            decoration: mui.InputDecoration(
                               suffixIcon: IconButton(
                                 icon: Icon(
                                   showPassword
@@ -107,7 +108,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                                       !_showNewPasswordNotifier.value;
                                 },
                               ),
-                              border: const OutlineInputBorder(),
+                              border: const mui.OutlineInputBorder(),
                               labelText: '${S.of(context).newPassword} *',
                             ),
                           );
@@ -130,7 +131,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                                     S.of(context).newPassword2RequireText,
                               ),
                             ]),
-                            decoration: InputDecoration(
+                            decoration: mui.InputDecoration(
                               suffixIcon: IconButton(
                                 icon: Icon(
                                   showPassword
@@ -142,7 +143,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                                       !_showNewPassword2Notifier.value;
                                 },
                               ),
-                              border: const OutlineInputBorder(),
+                              border: const mui.OutlineInputBorder(),
                               labelText: '${S.of(context).newPassword2} *',
                             ),
                           );
