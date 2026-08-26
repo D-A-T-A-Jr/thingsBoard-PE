@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1019283494576",
+    "project_id": "thingsboard-85bc3",
+    "storage_bucket": "thingsboard-85bc3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1019283494576:android:b3f58ba159bcfba8c3cd75",
+        "android_client_info": {
+          "package_name": "com.thingsboard"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6P6rXC9MC56pA5nTuJu8m4KbqmW-dZK4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

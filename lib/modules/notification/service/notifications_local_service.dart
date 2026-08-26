@@ -19,7 +19,11 @@ final class NotificationsLocalService implements INotificationsLocalService {
     final updatedCounter = (int.tryParse(counter.toString()) ?? 0) + 1;
     await storage.setItem(notificationCounterKey, updatedCounter.toString());
 
-    FlutterNewBadger.setBadge(updatedCounter);
+    try {
+      FlutterNewBadger.setBadge(updatedCounter);
+    } catch (e) {
+      // Ignore badge update failure (unsupported on this device/launcher)
+    }
     notificationsNumberStream.add(updatedCounter);
   }
 
@@ -28,10 +32,14 @@ final class NotificationsLocalService implements INotificationsLocalService {
     final counter = await storage.getItem(notificationCounterKey);
     final updatedCounter = (int.tryParse(counter.toString()) ?? 0) - 1;
     if (updatedCounter <= 0) {
-      FlutterNewBadger.removeBadge();
+      try {
+        FlutterNewBadger.removeBadge();
+      } catch (e) {}
       notificationsNumberStream.add(0);
     } else {
-      FlutterNewBadger.setBadge(updatedCounter);
+      try {
+        FlutterNewBadger.setBadge(updatedCounter);
+      } catch (e) {}
       await storage.setItem(notificationCounterKey, updatedCounter.toString());
       notificationsNumberStream.add(updatedCounter);
     }
@@ -45,14 +53,18 @@ final class NotificationsLocalService implements INotificationsLocalService {
 
   @override
   Future<void> clearNotificationBadgeCount() async {
-    FlutterNewBadger.removeBadge();
+    try {
+      FlutterNewBadger.removeBadge();
+    } catch (e) {}
     storage.deleteItem(notificationCounterKey);
     notificationsNumberStream.add(0);
   }
 
   @override
   Future<void> updateNotificationsCount(int count) async {
-    FlutterNewBadger.setBadge(count);
+    try {
+      FlutterNewBadger.setBadge(count);
+    } catch (e) {}
     storage.setItem(notificationCounterKey, count.toString());
     notificationsNumberStream.add(count);
   }

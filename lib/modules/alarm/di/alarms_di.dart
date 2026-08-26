@@ -60,11 +60,11 @@ class AlarmsDi {
             queryController: locator(),
           ),
         );
-
-        AlarmTypesDi.init(tbClient, scopeName: typesScopeName);
-        AssigneeDi.inti(tbClient, scopeName: assigneeScopeName);
       },
     );
+
+    AlarmTypesDi.init(tbClient, scopeName: typesScopeName);
+    AssigneeDi.inti(tbClient, scopeName: assigneeScopeName);
   }
 
   static void dispose(

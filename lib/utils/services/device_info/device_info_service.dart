@@ -19,6 +19,8 @@ class DeviceInfoService implements IDeviceInfoService {
       version = PlatformVersion.fromString(packageInfo.version);
     } else {
       packageName = 'web.app';
+      buildVersion = '1.0.0+1';
+      version = PlatformVersion.fromString('1.0.0');
       androidInfo = null;
       iosInfo = null;
       platform = PlatformType.WEB;

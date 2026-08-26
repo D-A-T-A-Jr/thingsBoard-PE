@@ -43,7 +43,7 @@ def appLinksUrlScheme = getDartDefineValue('appLinksUrlScheme') ?: 'https'
 android {
 namespace "org.thingsboard.app"
     ndkVersion "29.0.13113456"
-    compileSdkVersion 35
+    compileSdkVersion 36
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }

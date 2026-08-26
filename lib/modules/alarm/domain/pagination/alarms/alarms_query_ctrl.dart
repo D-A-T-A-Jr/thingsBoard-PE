@@ -12,7 +12,6 @@ class AlarmQueryController extends PageKeyController<AlarmQueryV2> {
             searchText,
             SortOrder('createdTime', Direction.DESC),
           ),
-          statusList: [AlarmSearchStatus.ACTIVE],
         ),
       );
 

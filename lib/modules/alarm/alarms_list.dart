@@ -36,14 +36,27 @@ class AlarmsList extends StatelessWidget {
               (_) => const FirstPageProgressBuilder(),
           newPageProgressIndicatorBuilder:
               (_) => const NewPageProgressBuilder(),
-          noItemsFoundIndicatorBuilder:
-              (context) => FirstPageExceptionIndicator(
-                title: S.of(context).noAlarmsFound,
-                message: S.of(context).listIsEmptyText,
-                onTryAgain:
-                    () =>
-                        getIt<AlarmBloc>().add(const AlarmsRefreshPageEvent()),
-              ),
+          firstPageErrorIndicatorBuilder: (context) {
+            final error = getIt<AlarmBloc>().paginationRepository.pagingController.error;
+            return Center(child: Text('Erro ao carregar alarmes: $error', textAlign: TextAlign.center, style: const TextStyle(color: Colors.red)));
+          },
+          noItemsFoundIndicatorBuilder: (context) => Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.alarm_off, size: 48, color: Colors.grey[400]),
+                const SizedBox(height: 16),
+                Text(
+                  S.of(context).noAlarmsFound,
+                  style: const TextStyle(fontSize: 18, color: Colors.grey),
+                ),
+                Text(
+                  S.of(context).listIsEmptyText,
+                  style: const TextStyle(color: Colors.grey),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
