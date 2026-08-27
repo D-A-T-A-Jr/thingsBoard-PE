@@ -1,6 +1,7 @@
 import 'dart:typed_data' show Uint8List;
 
-import 'package:esp_provisioning_softap/esp_provisioning_softap.dart';
+import 'package:esp_softap_provisioning/esp_softap_provisioning.dart';
+import 'package:esp_softap_provisioning/src/connection_models.dart';
 
 abstract interface class ISoftApService {
   Future<Provisioning> startProvisioning({
@@ -25,5 +26,5 @@ abstract interface class ISoftApService {
 
   Future<bool> applyWifiConfig(Provisioning prov);
 
-  Future<ConnectionStatus> getStatus(Provisioning prov);
+  Future<ConnectionStatus?> getStatus(Provisioning prov);
 }

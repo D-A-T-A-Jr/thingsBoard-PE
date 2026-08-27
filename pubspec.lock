@@ -521,15 +521,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
-  esp_provisioning_softap:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: aaa081e4de82958e227989e781cb211f3377c40b
-      url: "https://github.com/thingsboard/esp_provisioning_softap"
-    source: git
-    version: "1.0.4"
   esp_smartconfig:
     dependency: "direct main"
     description:
@@ -538,6 +529,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
+  esp_softap_provisioning:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "77732d04cda8c24631efd7bbdaaec74384a6fac0"
+      url: "https://github.com/jonatasperaza/esp_softap_provisioning_fix"
+    source: git
+    version: "1.0.1"
   event_bus:
     dependency: "direct main"
     description:
@@ -2010,10 +2010,10 @@ packages:
     dependency: transitive
     description:
       name: protobuf
-      sha256: "01dd9bd0fa02548bf2ceee13545d4a0ec6046459d847b6b061d8a27237108a08"
+      sha256: de9c9eb2c33f8e933a42932fe1dc504800ca45ebc3d673e6ed7f39754ee4053e
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.0"
+    version: "4.2.0"
   provider:
     dependency: transitive
     description:

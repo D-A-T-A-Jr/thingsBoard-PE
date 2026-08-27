@@ -77,9 +77,9 @@ dependencies:
   json_annotation: ^4.9.0
   mobile_scanner: ^7.0.1
   flutter_hooks: ^0.21.2
-  esp_provisioning_softap:
+  esp_softap_provisioning:
     git:
-      url: https://github.com/thingsboard/esp_provisioning_softap
+      url: https://github.com/jonatasperaza/esp_softap_provisioning_fix
   flutter_slidable: ^4.0.0
   flutter_native_splash: ^2.4.4
   super_tooltip: ^2.1.0

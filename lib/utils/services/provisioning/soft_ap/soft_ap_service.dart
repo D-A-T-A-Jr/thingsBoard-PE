@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
-import 'package:esp_provisioning_softap/esp_provisioning_softap.dart';
+import 'package:esp_softap_provisioning/esp_softap_provisioning.dart';
+import 'package:esp_softap_provisioning/src/connection_models.dart';
 import 'package:thingsboard_app/utils/services/provisioning/soft_ap/i_soft_ap_service.dart';
 
 class SoftApService implements ISoftApService {
@@ -10,7 +11,7 @@ class SoftApService implements ISoftApService {
     required String pop,
   }) async {
     final prov = Provisioning(
-      transport: TransportHTTP(hostname: hostname),
+      transport: TransportHTTP(hostname),
       security: Security1(pop: pop),
     );
 
@@ -29,7 +30,7 @@ class SoftApService implements ISoftApService {
   }
 
   @override
-  Future<ConnectionStatus> getStatus(Provisioning prov) {
+  Future<ConnectionStatus?> getStatus(Provisioning prov) {
     return prov.getStatus();
   }
 
@@ -43,7 +44,6 @@ class SoftApService implements ISoftApService {
     return prov.sendReceiveCustomData(
       data,
       packageSize: packageSize,
-      endpoint: endpoint,
     );
   }
 

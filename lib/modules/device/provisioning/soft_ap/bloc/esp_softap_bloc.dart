@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:esp_provisioning_softap/esp_provisioning_softap.dart';
+import 'package:esp_softap_provisioning/esp_softap_provisioning.dart';
+import 'package:esp_softap_provisioning/src/connection_models.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plugin_wifi_connect/plugin_wifi_connect.dart';
 import 'package:thingsboard_app/core/logger/tb_logger.dart';
@@ -138,6 +139,11 @@ Future<void> _onEspSoftApStartProvisioningEvent(Emitter<EspSoftApState> emit, Es
 
             await Future.delayed(const Duration(seconds: 10));
             final status = await softApService.getStatus(provisioning);
+            if (status == null) {
+              logger.info('SoftAp get connection status returned null');
+              --getStatusTries;
+              continue;
+            }
             logger.info(
               'SoftAp get connection status: ${status.state},'
               ' failed reason: ${status.failedReason}, '
