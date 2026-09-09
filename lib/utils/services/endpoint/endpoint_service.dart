@@ -38,6 +38,10 @@ class EndpointService implements IEndpointService {
 
   @override
   Future<String> getEndpoint() async {
+    if (ThingsboardAppConstants.thingsBoardApiEndpoint.isNotEmpty) {
+      _cachedEndpoint = ThingsboardAppConstants.thingsBoardApiEndpoint;
+      return _cachedEndpoint!;
+    }
     _cachedEndpoint ??= await databaseService.getSelectedEndpoint();
 
     return _cachedEndpoint ?? ThingsboardAppConstants.thingsBoardApiEndpoint;
@@ -45,15 +49,24 @@ class EndpointService implements IEndpointService {
 
   @override
   Future<bool> isCustomEndpoint() async {
-    _cachedEndpoint ??= await getEndpoint();
-    final host = Uri.parse(_cachedEndpoint!).host;
-    final defaultHosts = _defaultEndpoints.map((e) => Uri.parse(e).host).toSet();
+    final endpoint = await getEndpoint();
+    if (endpoint.isEmpty) {
+      return false;
+    }
+    final host = Uri.tryParse(endpoint)?.host;
+    final defaultHosts = _defaultEndpoints
+        .where((e) => e.isNotEmpty)
+        .map((e) => Uri.tryParse(e)?.host)
+        .toSet();
     final isCustom = !defaultHosts.contains(host);
     return isCustom;
   }
 
   @override
   String getCachedEndpoint() {
+    if (ThingsboardAppConstants.thingsBoardApiEndpoint.isNotEmpty) {
+      return ThingsboardAppConstants.thingsBoardApiEndpoint;
+    }
     return _cachedEndpoint ?? ThingsboardAppConstants.thingsBoardApiEndpoint;
   }
 

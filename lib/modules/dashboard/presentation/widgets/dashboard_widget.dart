@@ -58,7 +58,9 @@ class _DashboardState extends State<DashboardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (UniversalPlatform.isWeb) {
+    if (UniversalPlatform.isWeb ||
+        UniversalPlatform.isLinux ||
+        UniversalPlatform.isWindows) {
       return Center(child: Text(S.of(context).notImplemented));
     }
 

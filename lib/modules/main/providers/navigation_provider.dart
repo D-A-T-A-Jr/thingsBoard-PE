@@ -13,6 +13,7 @@ import 'package:thingsboard_app/modules/main/model/navigation_item_data.dart';
 import 'package:thingsboard_app/modules/main/model/navigation_state.dart';
 import 'package:thingsboard_app/modules/main/providers/navigation_helper.dart';
 import 'package:thingsboard_app/thingsboard_client.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 part 'navigation_provider.g.dart';
 
@@ -24,27 +25,35 @@ class Navigation extends _$Navigation {
   Size _deviceScreenSize = Size.zero;
   final _logger = TbLogger();
   List<NavigationItemData> _allPages = [];
-  late final StreamSubscription<NativeDeviceOrientation>
-  _orientationSubscription;
-  late final ProviderSubscription<LoginState> _loginSub;
+  StreamSubscription<NativeDeviceOrientation>? _orientationSubscription;
+  ProviderSubscription<LoginState>? _loginSub;
   @override
   NavigationState build() {
     final login = ref.read(loginProvider);
 
-    ref.listen(loginProvider, (prev, next) {
+    _loginSub = ref.listen(loginProvider, (prev, next) {
       onLoggedIn();
     });
 
-    _orientationSubscription = NativeDeviceOrientationCommunicator()
-        .onOrientationChanged()
-        .listen((e) async {
-          await Future.delayed(const Duration(seconds: 1));
-          _updateScreenSize();
-          updatePages();
-        });
+    if (UniversalPlatform.isAndroid || UniversalPlatform.isIOS) {
+      try {
+        _orientationSubscription = NativeDeviceOrientationCommunicator()
+            .onOrientationChanged()
+            .listen(
+              (e) async {
+                await Future.delayed(const Duration(seconds: 1));
+                _updateScreenSize();
+                updatePages();
+              },
+              onError: (e) {
+                // Ignore orientation listener errors on unsupported platforms
+              },
+            );
+      } catch (_) {}
+    }
     ref.onDispose(() {
-      _orientationSubscription.cancel();
-      _loginSub.close();
+      _orientationSubscription?.cancel();
+      _loginSub?.close();
     });
     if (!login.isUserLoaded || login.mobileLoginInfo == null) {
       return const NavigationState(bottomBarPages: [], morePages: []);

@@ -72,7 +72,10 @@ class Login extends _$Login {
           (user.isMfaConfigurationToken() || user.isPreVerificationToken())) {
         return false;
       }
-    } catch (e) {
+    } catch (e, s) {
+      log('Login error: $e', error: e, stackTrace: s);
+      final msg = e is ThingsboardError ? (e.message ?? e.toString()) : e.toString();
+      _overlayService.showErrorNotification((_) => msg);
       return false;
     }
     return true;

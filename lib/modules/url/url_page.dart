@@ -79,7 +79,9 @@ class _UrlPageState extends State<UrlPage> with AutomaticKeepAliveClientMixin {
         ],
       ),
       body:
-          UniversalPlatform.isWeb
+          (UniversalPlatform.isWeb ||
+                  UniversalPlatform.isLinux ||
+                  UniversalPlatform.isWindows)
               ? Center(child: Text(S.of(context).notImplemented))
               : Stack(
                 children: [
