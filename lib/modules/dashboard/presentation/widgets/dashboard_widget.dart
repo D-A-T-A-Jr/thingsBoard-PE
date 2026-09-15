@@ -58,6 +58,10 @@ class _DashboardState extends State<DashboardWidget> {
 
   @override
   Widget build(BuildContext context) {
+    // [ALTERAÇÃO - COMPATIBILIDADE DESKTOP]
+    // flutter_inappwebview não suporta Linux/Windows de forma nativa e lança exceção
+    // 'Null check operator used on a null value' em PlatformInAppWebViewWidget.staticInstance!.
+    // Adicionada verificação de Linux e Windows para evitar crash no desktop.
     if (UniversalPlatform.isWeb ||
         UniversalPlatform.isLinux ||
         UniversalPlatform.isWindows) {

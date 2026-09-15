@@ -73,6 +73,10 @@ class Login extends _$Login {
         return false;
       }
     } catch (e, s) {
+      // [ALTERAÇÃO - VISIBILIDADE E LOG DE ERROS DE LOGIN]
+      // Anteriormente o bloco apenas executava `catch (e) { return false; }` sem logar o erro
+      // nem exibir feedback na UI, deixando o usuário sem saber por que a autenticação falhou
+      // (ex: credenciais inválidas, falha de rede ou erro do servidor).
       log('Login error: $e', error: e, stackTrace: s);
       final msg = e is ThingsboardError ? (e.message ?? e.toString()) : e.toString();
       _overlayService.showErrorNotification((_) => msg);

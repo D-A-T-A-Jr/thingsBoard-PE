@@ -78,6 +78,9 @@ class _UrlPageState extends State<UrlPage> with AutomaticKeepAliveClientMixin {
           ),
         ],
       ),
+      // [ALTERAÇÃO - COMPATIBILIDADE DESKTOP]
+      // InAppWebView não possui suporte a Linux/Windows, portanto direcionamos para o placeholder notImplemented
+      // evitando tentativa de inicializar o canal nativo do webview.
       body:
           (UniversalPlatform.isWeb ||
                   UniversalPlatform.isLinux ||

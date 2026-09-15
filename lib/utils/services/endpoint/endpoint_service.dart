@@ -38,6 +38,10 @@ class EndpointService implements IEndpointService {
 
   @override
   Future<String> getEndpoint() async {
+    // [ALTERAÇÃO - CONFIGURAÇÃO DE ENDPOINT]
+    // Prioriza o endpoint fornecido via configs.json (--dart-define / --dart-define-from-file).
+    // Anteriormente, o cache do Hive local (databaseService) era consultado antes, fazendo com
+    // que endpoints antigos salvos (como thingsboard.cloud) prevalecessem sobre o configs.json.
     if (ThingsboardAppConstants.thingsBoardApiEndpoint.isNotEmpty) {
       _cachedEndpoint = ThingsboardAppConstants.thingsBoardApiEndpoint;
       return _cachedEndpoint!;
@@ -49,6 +53,8 @@ class EndpointService implements IEndpointService {
 
   @override
   Future<bool> isCustomEndpoint() async {
+    // [ALTERAÇÃO - PARSING SEGURO]
+    // Utiliza Uri.tryParse em vez de Uri.parse direto para evitar FormatException em strings vazias ou inválidas.
     final endpoint = await getEndpoint();
     if (endpoint.isEmpty) {
       return false;
@@ -64,6 +70,8 @@ class EndpointService implements IEndpointService {
 
   @override
   String getCachedEndpoint() {
+    // [ALTERAÇÃO - CONSISTÊNCIA DE ENDPOINT]
+    // Garante que o endpoint configurado em tempo de compilação seja sempre retornado de forma síncrona.
     if (ThingsboardAppConstants.thingsBoardApiEndpoint.isNotEmpty) {
       return ThingsboardAppConstants.thingsBoardApiEndpoint;
     }

@@ -14,6 +14,11 @@ final class NotificationsLocalService implements INotificationsLocalService {
 
   late final TbStorage storage;
 
+  // [ALTERAÇÃO - TRATAMENTO ASSÍNCRONO & DESKTOP]
+  // FlutterNewBadger.setBadge e removeBadge retornam Future e não possuem implementação no Linux/Windows.
+  // Anteriormente, eram chamados sem `await` dentro de um `try/catch` síncrono.
+  // Isso fazia com que a MissingPluginException ocorresse de forma não capturada no isolate do Dart.
+  // Os métodos _safeSetBadge e _safeRemoveBadge adicionam verificação de plataforma e `await` seguro.
   bool get _isBadgerSupported =>
       UniversalPlatform.isAndroid || UniversalPlatform.isIOS;
 

@@ -25,6 +25,9 @@ class Navigation extends _$Navigation {
   Size _deviceScreenSize = Size.zero;
   final _logger = TbLogger();
   List<NavigationItemData> _allPages = [];
+  // [ALTERAÇÃO - ROBUSTEZ DESKTOP & LIFECYCLE]
+  // _orientationSubscription e _loginSub tornados anuláveis (nullable).
+  // Anteriormente, _loginSub era `late final` e nunca era atribuído, causando LateInitializationError no dispose.
   StreamSubscription<NativeDeviceOrientation>? _orientationSubscription;
   ProviderSubscription<LoginState>? _loginSub;
   @override
@@ -35,6 +38,9 @@ class Navigation extends _$Navigation {
       onLoggedIn();
     });
 
+    // [ALTERAÇÃO - COMPATIBILIDADE DESKTOP LINUX/WINDOWS]
+    // O plugin native_device_orientation utiliza um EventChannel que só existe no Android e iOS.
+    // No Linux desktop, a chamada lançava MissingPluginException e quebrava o app na inicialização.
     if (UniversalPlatform.isAndroid || UniversalPlatform.isIOS) {
       try {
         _orientationSubscription = NativeDeviceOrientationCommunicator()
@@ -46,7 +52,7 @@ class Navigation extends _$Navigation {
                 updatePages();
               },
               onError: (e) {
-                // Ignore orientation listener errors on unsupported platforms
+                // Ignora falhas de escuta em plataformas ou emuladores sem suporte a giroscópio
               },
             );
       } catch (_) {}

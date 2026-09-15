@@ -139,6 +139,8 @@ Future<void> _onEspSoftApStartProvisioningEvent(Emitter<EspSoftApState> emit, Es
 
             await Future.delayed(const Duration(seconds: 10));
             final status = await softApService.getStatus(provisioning);
+            // [ALTERAÇÃO - ROBUSTEZ SOFTAP]
+            // Tratamento defensivo contra retorno nulo em getStatus para evitar NullPointerException.
             if (status == null) {
               logger.info('SoftAp get connection status returned null');
               --getStatusTries;

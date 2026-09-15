@@ -10,6 +10,8 @@ class SoftApService implements ISoftApService {
     required String hostname,
     required String pop,
   }) async {
+    // [ALTERAÇÃO - PROVISIONAMENTO ESP]
+    // Utiliza TransportHTTP posicional compatível com o fork esp_softap_provisioning_fix.
     final prov = Provisioning(
       transport: TransportHTTP(hostname),
       security: Security1(pop: pop),
